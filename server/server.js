@@ -8,7 +8,7 @@ const passportConfig = require("./services/auth");
 const MongoStore = require("connect-mongo")(session);
 const schema = require("./schema/schema");
 
-const { DB_USERNAME, DB_PASSWORD, DB_NAME } = require('.env');
+const { DB_USERNAME, DB_PASSWORD, DB_NAME } = require('./env');
 
 // Create a new Express application
 const app = express();
@@ -66,7 +66,6 @@ app.use(
 const webpackMiddleware = require("webpack-dev-middleware");
 const webpack = require("webpack");
 const webpackConfig = require("../webpack.config.js");
-const { DB_USERNAME } = require("./env");
 app.use(webpackMiddleware(webpack(webpackConfig)));
 
 module.exports = app;
