@@ -20,6 +20,12 @@ const mutation = new GraphQLObjectType({
         return AuthService.signup({ ...args, req });
       },
     },
+    logout: {
+      type: UserType,
+      resolve(parentValue, args, req) {
+        return AuthService.logout({ req });
+      },
+    },
   },
 });
 
