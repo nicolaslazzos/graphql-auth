@@ -4,6 +4,9 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 import "antd/dist/antd.css";
+import "./style/style.css";
+
+import Home from "./components/Home";
 
 // the client communicates with the graphql server
 // the provider makes possible the interaction between the client and react
@@ -19,9 +22,7 @@ const Root = () => {
     <ApolloProvider client={client}>
       <Router>
         <Switch>
-          <Route exact path="/">
-            <div>Home</div>
-          </Route>
+          <Route exact path="/" component={Home} />
         </Switch>
       </Router>
     </ApolloProvider>

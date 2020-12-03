@@ -6,7 +6,7 @@ export default ({ children, title, subtitle, actions, onBackPress }) => {
     <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: 20 }}>
       <PageHeader
         className="site-page-header"
-        title={title || "Lyrical GraphQL"}
+        title={title}
         subTitle={subtitle}
         onBack={onBackPress}
         extra={actions?.map((item, i) => (
