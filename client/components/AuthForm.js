@@ -15,8 +15,6 @@ class AuthForm extends React.Component {
       const { email, password } = this.state;
       await this.props?.onSubmit?.({ email, password });
 
-      this.setState({ loading: false });
-
       this.props?.onSuccess?.();
     } catch (error) {
       console.log(error);

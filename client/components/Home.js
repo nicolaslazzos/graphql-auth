@@ -8,7 +8,10 @@ import ScreenContainer from "./ScreenContainer";
 class Home extends React.Component {
   onLogoutPress = async () => {
     try {
+      // the refetch is not considered in the promise, so the response is thrown after the mutation is done
       await this.props.mutate({ refetchQueries: [{ query: currentUser }] });
+
+      this.props.history.push("/");
     } catch (e) {
       console.log(e);
     }

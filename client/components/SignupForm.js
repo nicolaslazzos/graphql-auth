@@ -9,9 +9,13 @@ class SignupForm extends React.Component {
     await this.props.mutate({ variables: { email, password }, refetchQueries: [{ query: currentUser }] });
   };
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps?.data?.user && this.props?.data?.user) this.props.history.push("/dashboard");
+  }
+
   render() {
-    return <AuthForm title="Sign Up" onSubmit={this.onSignupPress} onSuccess={() => this.props.history.push("/")} />;
+    return <AuthForm title="Sign Up" onSubmit={this.onSignupPress} />;
   }
 }
 
-export default graphql(signup)(SignupForm);
+export default graphql(signup)(graphql(currentUser)(SignupForm));

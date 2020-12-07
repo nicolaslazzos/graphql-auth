@@ -8,8 +8,12 @@ import "antd/dist/antd.css";
 import "./style/style.css";
 
 import Home from "./components/Home";
+import Landing from "./components/Landing";
+import Dashboard from "./components/Dashboard";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
+
+import requireAuth from "./components/requireAuth";
 
 // the client communicates with the graphql server
 // the provider makes possible the interaction between the client and react
@@ -27,6 +31,8 @@ const Root = () => {
         <Router>
           <Route path="/">
             <Home>
+              <Route exact path="/" component={Landing} />
+              <Route path="/dashboard" component={requireAuth(Dashboard)} />
               <Route path="/login" component={LoginForm} />
               <Route path="/signup" component={SignupForm} />
             </Home>
