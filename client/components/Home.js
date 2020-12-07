@@ -1,18 +1,29 @@
 import React from "react";
 import { graphql } from "@apollo/react-hoc";
+import { withRouter } from "react-router-dom";
 
-import { currentUser } from "../queries";
+import { currentUser, logout } from "../queries";
 import ScreenContainer from "./ScreenContainer";
 
 class Home extends React.Component {
+  onLogoutPress = async () => {
+    try {
+      await this.props.mutate({ refetchQueries: [{ query: currentUser }] });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   getActions = () => {
     const actions = [];
 
-    if (this.props?.data?.user) {
-      actions.push({ text: "Log In", type: "primary", onClick: () => console.log("log in") });
-      actions.push({ text: "Sign Up", type: "primary", onClick: () => console.log("sign up") });
+    if (this.props?.data?.loading) return actions;
+
+    if (!this.props?.data?.user) {
+      actions.push({ text: "Log In", type: "primary", onClick: () => this.props.history.push("/login") });
+      actions.push({ text: "Sign Up", type: "primary", onClick: () => this.props.history.push("/signup") });
     } else {
-      actions.push({ text: "Log Out", type: "primary", onClick: () => console.log("log out") });
+      actions.push({ text: "Log Out", type: "primary", onClick: this.onLogoutPress });
     }
 
     return actions;
@@ -23,14 +34,14 @@ class Home extends React.Component {
       <ScreenContainer
         title="GraphQL Auth"
         subtitle={this.props?.data?.user?.email ?? null}
+        onTitlePress={() => this.props.history.push("/")}
         onBackPress={this.onBackPress}
         actions={this.getActions()}
       >
-        <br />
-        <div>Home</div>
+        {this.props.children}
       </ScreenContainer>
     );
   }
 }
 
-export default graphql(currentUser)(Home);
+export default withRouter(graphql(logout)(graphql(currentUser)(Home)));
